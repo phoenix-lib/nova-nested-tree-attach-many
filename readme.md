@@ -43,7 +43,7 @@ Your model should has NodeTrait form package kalnoy/nestedset see RoadMap
 
 class Category extends Model
 {
-	use NodeTrait;
+    use NodeTrait;
 }
 ```
 
