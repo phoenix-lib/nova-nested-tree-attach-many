@@ -1,0 +1,32 @@
+{
+    "name": "phoenix-lib/nova-nested-tree-attach-many",
+    "description": "Nova vue-tree-select field for management nested category relations.",
+    "keywords": [
+        "laravel",
+        "nova",
+        "belongs-to-many",
+        "nested-sets"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0",
+        "kalnoy/nestedset": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhoenixLib\\NovaNestedTreeAttachMany\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PhoenixLib\\NovaNestedTreeAttachMany\\FieldServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

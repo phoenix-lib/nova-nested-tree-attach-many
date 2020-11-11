@@ -1,0 +1,16 @@
+// Nova Tool CSS
+
+.nova-tree-attach-many
+{
+	.vue-treeselect
+	{
+		&__menu-container
+		{
+			position: relative;
+		}
+		&__menu
+		{
+			position: relative;
+		}
+	}
+}
