@@ -43,7 +43,7 @@ Here are a few customization options
 - `->withFilterModel(string $model)` // - Class of your Model with NodeTrait in full namespace via \App\Models\Category::class
 - `->withMaxHeight(int $maxHeight)`
 - `->withSortValueBy(string $sortBy)` // - @see https://vue-treeselect.js.org/#flat-mode-and-sort-values
-- `->withAlwaysOpen(string $sortBy)` // - by default select is open, but you can change it behavior
+- `->withAlwaysOpen(boot $alwaysOpen)` // - by default select is open, but you can change it behavior
 
 
 ### Authorization
