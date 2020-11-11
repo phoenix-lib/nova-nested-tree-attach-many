@@ -20,7 +20,7 @@ This field uses tree provided by kalnoy/nestedset package
 This field uses riophae/vue-treeselect under the hood
 
 ```php
-use NovaPackage\NestedTreeAttachMany\NestedTreeAttachManyField;
+use PhoenixLib\NestedTreeAttachMany\NestedTreeAttachManyField;
 ```
 ```php
 public function fields(Request $request)
