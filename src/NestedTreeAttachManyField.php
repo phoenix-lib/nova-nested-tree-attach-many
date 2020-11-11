@@ -17,6 +17,10 @@ class NestedTreeAttachManyField extends Field
 
     public $component = 'nova-nested-tree-attach-many';
 
+    public $showOnDetail = false;
+
+    public $showOnIndex = false;
+
     public function __construct($name, $attribute = null, $resource = null)
     {
         parent::__construct($name, $attribute);
