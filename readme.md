@@ -7,6 +7,12 @@ Belongs To Many Field for simple manage Nested relation tree. Enables attaching 
 
 ![nova-nested-tree-attach-many](https://user-images.githubusercontent.com/74270064/98738291-8a872780-23b8-11eb-8c76-a8605abe69f8.gif)
 
+### RoadMap
+
+- [ ] Validation
+- [ ] Show selected categories on Detail
+- [ ] Ability to pass your own tree
+
 ### Installation
 
 ```bash
@@ -28,6 +34,16 @@ public function fields(Request $request)
     return [
         NestedTreeAttachManyField::make('Offer Categories',"categories","App\Nova\Category"),
     ];
+}
+```
+
+Your model should has NodeTrait form package kalnoy/nestedset see RoadMap
+
+```php
+
+class Category extends Model
+{
+	use NodeTrait;
 }
 ```
 
