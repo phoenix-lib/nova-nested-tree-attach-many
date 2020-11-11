@@ -40,7 +40,6 @@ Here are a few customization options
 - `->withLabelKey(string $labelKey = 'name')` // - label column name in your nested model
 - `->withChildrenKey(string $childrenKey)` // - children key in your nested model
 - `->withPlaceholder(string $placeholder)` // - placeholder in tree select
-- `->withFilterModel(string $model)` // - Class of your Model with NodeTrait in full namespace via \App\Models\Category::class
 - `->withMaxHeight(int $maxHeight)`
 - `->withSortValueBy(string $sortBy)` // - @see https://vue-treeselect.js.org/#flat-mode-and-sort-values
 - `->withAlwaysOpen(boot $alwaysOpen)` // - by default select is open, but you can change it behavior
