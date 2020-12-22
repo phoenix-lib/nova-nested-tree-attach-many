@@ -4,9 +4,9 @@
       <div :dir="field.rtl ? 'rtl' : 'ltr'" class="p-2 nova-tree-attach-many">
         <treeselect v-model="selectedValues"
             :id="field.name"
-            :multiple="true"
+            :multiple="field.multiple"
             :options="field.options"
-            :flat="true"
+            :flat="field.flatten"
             :searchable="field.searchable"
             :always-open="field.alwaysOpen"
             :disabled="field.disabled"

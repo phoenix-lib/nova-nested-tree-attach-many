@@ -50,11 +50,11 @@ class NestedTreeAttachManyField extends Field
             'labelKey'          => 'name',
             'childrenKey'       => 'children',
             'multiple'          => true,
-            'flat'               => true,
+            'flatten'            => true,
             'searchable'        => true,
-            'placeholder'       => __("Select Category"),
+            'placeholder'       => __('Select Category'),
             'alwaysOpen'        => true,
-            'sortValueBy'       => "LEVEL",
+            'sortValueBy'       => 'LEVEL',
             'disabled'          => false,
             'rtl'               => false,
             'maxHeight'         => 500,
@@ -69,7 +69,7 @@ class NestedTreeAttachManyField extends Field
     public function searchable(bool $searchable): NestedTreeAttachManyField
     {
         $this->withMeta([
-            "searchable" => $searchable,
+            'searchable' => $searchable,
         ]);
 
         return $this;
@@ -78,7 +78,7 @@ class NestedTreeAttachManyField extends Field
     public function withIdKey(string $idKey = 'id'): NestedTreeAttachManyField
     {
         $this->withMeta([
-            "idKey" => $idKey,
+            'idKey' => $idKey,
         ]);
 
         return $this;
@@ -87,7 +87,7 @@ class NestedTreeAttachManyField extends Field
     public function withLabelKey(string $labelKey = 'name'): NestedTreeAttachManyField
     {
         $this->withMeta([
-            "labelKey" => $labelKey,
+            'labelKey' => $labelKey,
         ]);
 
         return $this;
@@ -96,7 +96,7 @@ class NestedTreeAttachManyField extends Field
     public function withChildrenKey(string $childrenKey): NestedTreeAttachManyField
     {
         $this->withMeta([
-            "childrenKey" => $childrenKey,
+            'childrenKey' => $childrenKey,
         ]);
 
         return $this;
@@ -105,7 +105,7 @@ class NestedTreeAttachManyField extends Field
     public function withPlaceholder(string $placeholder): NestedTreeAttachManyField
     {
         $this->withMeta([
-            "placeholder" => $placeholder,
+            'placeholder' => $placeholder,
         ]);
 
         return $this;
@@ -114,7 +114,7 @@ class NestedTreeAttachManyField extends Field
     public function withMaxHeight(int $maxHeight): NestedTreeAttachManyField
     {
         $this->withMeta([
-            "maxHeight" => $maxHeight,
+            'maxHeight' => $maxHeight,
         ]);
 
         return $this;
@@ -123,7 +123,7 @@ class NestedTreeAttachManyField extends Field
     public function withAlwaysOpen(bool $alwaysOpen): NestedTreeAttachManyField
     {
         $this->withMeta([
-            "alwaysOpen" => $alwaysOpen,
+            'alwaysOpen' => $alwaysOpen,
         ]);
 
         return $this;
@@ -132,12 +132,22 @@ class NestedTreeAttachManyField extends Field
     public function withSortValueBy(string $sortBy): NestedTreeAttachManyField
     {
         $this->withMeta([
-            "sortValueBy" => $sortBy,
+            'sortValueBy' => $sortBy,
         ]);
 
         return $this;
     }
 
+    public function useSingleSelect(): NestedTreeAttachManyField
+    {
+        $this->withMeta([
+            'multiple' => false,
+            'flatten' => false
+        ]);
+
+        return $this;
+    }
+    
     public function authorize(Request $request)
     {
         if(! $this->resourceClass::authorizable()) {
