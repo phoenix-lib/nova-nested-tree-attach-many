@@ -10,7 +10,7 @@ Belongs To Many Field for simple manage Nested relation tree. Enables attaching 
 ### RoadMap
 
 - [ ] Validation
-- [ ] Show selected categories on Detail
+- [x] Show selected categories on Detail
 - [ ] Ability to pass your own tree
 - [ ] Ability to `Delayed Loading` data when tree has many records ( example 10k+ ).
 
