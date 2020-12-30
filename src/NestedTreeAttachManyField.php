@@ -49,6 +49,7 @@ class NestedTreeAttachManyField extends Field
             'idKey'             => 'id',
             'labelKey'          => 'name',
             'childrenKey'       => 'children',
+            'activeKey'         => 'is_active',
             'multiple'          => true,
             'flatten'            => true,
             'searchable'        => true,
@@ -101,6 +102,16 @@ class NestedTreeAttachManyField extends Field
 
         return $this;
     }
+
+    public function withActiveKey(string $activeKey): NestedTreeAttachManyField
+    {
+        $this->withMeta([
+            'activeKey' => $activeKey,
+        ]);
+
+        return $this;
+    }
+
 
     public function withPlaceholder(string $placeholder): NestedTreeAttachManyField
     {

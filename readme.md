@@ -55,6 +55,7 @@ Here are a few customization options
 - `->searchable(bool $searchable)`
 - `->withIdKey(string $idKey = 'id')` // - id column name in your nested model
 - `->withLabelKey(string $labelKey = 'name')` // - label column name in your nested model
+- `->withActiveKey(string $activeKey)` // - active_status column name in your nested model used for disable options
 - `->withChildrenKey(string $childrenKey)` // - children key in your nested model
 - `->withPlaceholder(string $placeholder)` // - placeholder in tree select
 - `->withMaxHeight(int $maxHeight)`

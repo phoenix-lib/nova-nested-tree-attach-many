@@ -48,7 +48,12 @@ export default {
       return {
         id: node[this.field.idKey],
         label: node[this.field.labelKey],
-        children: node[this.field.childrenKey].length > 0 ? node[this.field.childrenKey] : false
+        isDisabled: node.hasOwnProperty(this.field.activeKey)
+            && node[this.field.activeKey] !== true,
+        children: node.hasOwnProperty(this.field.childrenKey)
+            && node[this.field.childrenKey].length > 0
+            ? node[this.field.childrenKey]
+            : false
       }
     },
     setInitialValue()
