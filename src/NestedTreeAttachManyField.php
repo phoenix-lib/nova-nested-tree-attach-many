@@ -3,9 +3,11 @@
 namespace PhoenixLib\NovaNestedTreeAttachMany;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Laravel\Nova\Authorizable;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Fields\ResourceRelationshipGuesser;
+use PhoenixLib\NovaNestedTreeAttachMany\Domain\Relation\RelationHandlerFactory;
 
 class NestedTreeAttachManyField extends Field
 {
@@ -18,6 +20,8 @@ class NestedTreeAttachManyField extends Field
     public $component = 'nova-nested-tree-attach-many';
 
     public $showOnIndex = false;
+
+    private $fireEvents = 0;
 
     public function __construct($name, $attribute = null, $resource = null)
     {
@@ -34,11 +38,16 @@ class NestedTreeAttachManyField extends Field
         $this->fillUsing(function($request, $model, $attribute, $requestAttribute) use($resource) {
             if(is_subclass_of($model, 'Illuminate\Database\Eloquent\Model')) {
                 $model::saved(function($model) use($attribute, $request) {
-                    $model->{$attribute}()->sync(
-                        json_decode($request->{$attribute}, true)
-                    );
-                });
 
+                    $factory = App::make(RelationHandlerFactory::class);
+
+                    $relation = get_class($model->{$attribute}());
+
+                    $handler = $factory->make($relation);
+
+                    $handler->attach($model, $attribute, json_decode($request->{$attribute}, true));
+
+                });
                 unset($request->{$attribute});
             }
         });
@@ -156,7 +165,7 @@ class NestedTreeAttachManyField extends Field
 
         return $this;
     }
-    
+
     public function authorize(Request $request)
     {
         if(! $this->resourceClass::authorizable()) {

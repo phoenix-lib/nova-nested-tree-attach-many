@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import {FormField, HandlesValidationErrors} from 'laravel-nova'
+import { FormField, HandlesValidationErrors } from "laravel-nova";
 
-import Treeselect from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import Treeselect from "@riophae/vue-treeselect";
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 
 export default {
   components: {Treeselect},
@@ -39,7 +39,7 @@ export default {
   data()
   {
     return {
-      selectedValues: [],
+      selectedValues: null,
     };
   },
   methods: {
@@ -56,17 +56,31 @@ export default {
     },
     setInitialValue()
     {
+        let baseUrl = '/nova-vendor/nova-nested-tree-attach-many/';
 
-      let baseUrl = '/nova-vendor/nova-nested-tree-attach-many/';
+        if( this.resourceId )
+        {
+            const url = [
+                baseUrl + this.resourceName,
+                this.resourceId,
+                "attached",
+                this.field.attribute,
+                this.field.idKey
+            ];
 
-      if( this.resourceId )
-      {
-        Nova.request( baseUrl + this.resourceName + '/' + this.resourceId + '/attached/' + this.field.attribute )
-            .then( ( data ) =>
-            {
-              this.selectedValues = data.data || [];
-            } );
-      }
+            Nova.request( url.join( "/" ) )
+                .then( ( data ) =>
+                {
+                    if(!this.field.multiple)
+                    {
+                        this.selectedValues = data.data || undefined;
+                    }
+                    else
+                    {
+                        this.selectedValues = data.data || [];
+                    }
+                } );
+        }
     },
     fill( formData )
     {

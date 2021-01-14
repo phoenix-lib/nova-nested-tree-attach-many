@@ -39,7 +39,7 @@ export default {
   data()
   {
     return {
-      selectedValues: [],
+      selectedValues: null,
     };
   },
   methods: {
@@ -63,11 +63,37 @@ export default {
 
       if( this.resourceId )
       {
-        Nova.request( baseUrl + this.resourceName + '/' + this.resourceId + '/attached/' + this.field.attribute )
-            .then( ( data ) =>
-            {
-              this.selectedValues = data.data || [];
+        const url = [
+            baseUrl + this.resourceName,
+            this.resourceId,
+            'attached',
+            this.field.attribute,
+            this.field.idKey
+        ];
+
+        Nova.request( url.join('/') )
+            .then( ( data ) => {
+
+                if(!this.field.multiple)
+                {
+                    this.selectedValues = data.data || undefined;
+                }
+                else
+                {
+                    this.selectedValues = data.data || [];
+                }
             } );
+      }
+      else
+      {
+          if(!this.field.multiple)
+          {
+              this.selectedValues = undefined;
+          }
+          else
+          {
+              this.selectedValues = [];
+          }
       }
     },
     fill( formData )
@@ -81,7 +107,7 @@ export default {
     },
     firstError: function() {
       return this.errors.errors[this.field.attribute][0]
-    },
+    }
   }
 }
 </script>

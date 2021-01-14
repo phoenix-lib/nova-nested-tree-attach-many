@@ -5,6 +5,11 @@ namespace PhoenixLib\NovaNestedTreeAttachMany;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
+use PhoenixLib\NovaNestedTreeAttachMany\Domain\Relation\Handlers\BelongsToHandler;
+use PhoenixLib\NovaNestedTreeAttachMany\Domain\Relation\Handlers\BelongsToManyHandler;
+use PhoenixLib\NovaNestedTreeAttachMany\Domain\Relation\Handlers\HasManyHandler;
+use PhoenixLib\NovaNestedTreeAttachMany\Domain\Relation\RelationHandlerFactory;
+use PhoenixLib\NovaNestedTreeAttachMany\Domain\Relation\RelationHandlerResolver;
 
 class FieldServiceProvider extends ServiceProvider
 {
@@ -34,6 +39,12 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(RelationHandlerFactory::class, RelationHandlerResolver::class);
+
+        $factory = $this->app->make(RelationHandlerFactory::class);
+
+        $factory->register($this->app->make(BelongsToManyHandler::class));
+        $factory->register($this->app->make(BelongsToHandler::class));
+        $factory->register($this->app->make(HasManyHandler::class));
     }
 }
