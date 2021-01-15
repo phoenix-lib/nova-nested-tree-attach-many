@@ -72,7 +72,10 @@ This field also respects policies: ie Role / Permission
 
 ### Validation
 You can set min, max, size, required or custom rule objects
-`->rules('min:5', 'max:10', 'size:10', 'required', new CustomRule)`
+
+```php
+->rules('min:5', 'max:10', 'size:10', 'required', new CustomRule)`
+```
 
 ### Contributing
 Feel free to suggest changes, ask for new features or fix bugs yourself.
