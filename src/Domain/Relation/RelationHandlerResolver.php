@@ -4,6 +4,7 @@ namespace PhoenixLib\NovaNestedTreeAttachMany\Domain\Relation;
 
 use DomainException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use PhoenixLib\NovaNestedTreeAttachMany\Domain\Relation\Handlers\RelationHandler;
 
 class RelationHandlerResolver implements RelationHandlerFactory
@@ -16,9 +17,14 @@ class RelationHandlerResolver implements RelationHandlerFactory
 
     public function make( $relation ): RelationHandler
     {
-        if($this->handlers->has( $relation ))
+        $handler = $this->handlers->first(function (RelationHandler $handler) use ($relation){
+            $handlerRelation = $handler->relation();
+            return $relation instanceof $handlerRelation;
+        });
+
+        if($handler)
         {
-            return $this->handlers->get( $relation );
+            return $handler;
         }
 
         throw new DomainException(sprintf('RelationHandler for relation: %s is not registered', $relation));

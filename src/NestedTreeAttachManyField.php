@@ -41,9 +41,7 @@ class NestedTreeAttachManyField extends Field
 
                     $factory = App::make(RelationHandlerFactory::class);
 
-                    $relation = get_class($model->{$attribute}());
-
-                    $handler = $factory->make($relation);
+                    $handler = $factory->make($model->{$attribute}());
 
                     $handler->attach($model, $attribute, json_decode($request->{$attribute}, true));
 

@@ -19,9 +19,7 @@ class NestedTreeController extends Controller
     {
         $model = $request->findResourceOrFail()->model();
 
-        $relation = get_class($model->{$relationship}());
-
-        $handler = $this->factory->make($relation);
+        $handler = $this->factory->make($model->{$relationship}());
 
         return $handler->retrieve($model, $relationship, $idKey);
     }
