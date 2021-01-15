@@ -2,12 +2,14 @@
 
 namespace PhoenixLib\NovaNestedTreeAttachMany;
 
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Laravel\Nova\Authorizable;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Fields\ResourceRelationshipGuesser;
 use PhoenixLib\NovaNestedTreeAttachMany\Domain\Relation\RelationHandlerFactory;
+use PhoenixLib\NovaNestedTreeAttachMany\Rules\ArrayRules;
 
 class NestedTreeAttachManyField extends Field
 {
@@ -20,8 +22,6 @@ class NestedTreeAttachManyField extends Field
     public $component = 'nova-nested-tree-attach-many';
 
     public $showOnIndex = false;
-
-    private $fireEvents = 0;
 
     public function __construct($name, $attribute = null, $resource = null)
     {
@@ -177,5 +177,14 @@ class NestedTreeAttachManyField extends Field
         return call_user_func([ $this->resourceClass, 'authorizedToViewAny'], $request)
             && $request->newResource()->authorizedToAttachAny($request, $this->resourceClass::newModel())
             && parent::authorize($request);
+    }
+
+    public function rules($rules)
+    {
+        $rules = ($rules instanceof Rule || is_string($rules)) ? func_get_args() : (array)$rules;
+
+        $this->rules = [ new ArrayRules($rules) ];
+
+        return $this;
     }
 }

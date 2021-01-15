@@ -9,7 +9,7 @@ Belongs To Many Field for simple manage Nested relation tree. Enables attaching 
 
 ### RoadMap
 
-- [ ] Validation
+- [x] Validation
 - [x] Show selected categories on Detail
 - [ ] Ability to pass your own tree
 - [ ] Ability to `Delayed Loading` data when tree has many records ( example 10k+ ).
@@ -70,6 +70,9 @@ This field also respects policies: ie Role / Permission
 - RolePolicy: attachPermission($user, $role, $permission)
 - PermissionPolicy: viewAny($user)
 
+### Validation
+You can set min, max, size, required or custom rule objects
+`->rules('min:5', 'max:10', 'size:10', 'required', new CustomRule)`
 
 ### Contributing
 Feel free to suggest changes, ask for new features or fix bugs yourself.

@@ -17,9 +17,6 @@
             :normalizer="normalizer"
         />
       </div>
-      <help-text class="error-text mt-2 text-danger" v-if="hasErrors">
-        {{ firstError }}
-      </help-text>
     </template>
   </default-field>
 </template>
@@ -100,14 +97,6 @@ export default {
     {
       formData.append( this.field.attribute, JSON.stringify( this.selectedValues ) )
     },
-  },
-  computed:{
-    hasErrors: function() {
-      return this.errors.errors.hasOwnProperty(this.field.attribute);
-    },
-    firstError: function() {
-      return this.errors.errors[this.field.attribute][0]
-    }
   }
 }
 </script>
