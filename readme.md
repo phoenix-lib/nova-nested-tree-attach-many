@@ -1,5 +1,6 @@
 # Nova Nested Tree Attach Many
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Latest Version on Github](https://img.shields.io/github/release/phoenix-lib/nova-nested-tree-attach-many.svg?style=flat-square)](https://packagist.org/packages/phoenix-lib/nova-nested-tree-attach-many)
 [![Total Downloads](https://img.shields.io/packagist/dt/phoenix-lib/nova-nested-tree-attach-many.svg?style=flat-square)](https://packagist.org/packages/phoenix-lib/nova-nested-tree-attach-many)
 
