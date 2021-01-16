@@ -17,6 +17,10 @@ class BelongsToHandler implements RelationHandler
             throw new DomainException('Can`t use BelongsTo relation with multiple select.');
         }
 
+        $dispatcher = $model->getEventDispatcher();
+
+        $model->unsetEventDispatcher();
+
         if(intval($value) > 0)
         {
             $relationModel = $model->{$relationship}()->getModel();
@@ -28,7 +32,9 @@ class BelongsToHandler implements RelationHandler
             $model->{$relationship}()->dissociate();
         }
 
-        $model->saveQuietly();
+        $model->save();
+
+        $model->setEventDispatcher($dispatcher);
     }
 
     public function retrieve($model, $relationship, $idKey)
