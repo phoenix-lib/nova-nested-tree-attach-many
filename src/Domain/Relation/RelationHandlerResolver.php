@@ -37,7 +37,7 @@ class RelationHandlerResolver implements RelationHandlerFactory
         }
 
         // oops, not registered relation
-        throw new DomainException(sprintf('RelationHandler for relation: %s is not registered', $relation));
+        throw new DomainException(sprintf('RelationHandler for relation: %s is not registered', $relationClass));
     }
 
     public function register( RelationHandler $handler ): void
