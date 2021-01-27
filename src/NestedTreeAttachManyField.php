@@ -163,6 +163,15 @@ class NestedTreeAttachManyField extends Field
         return $this;
     }
 
+    public function withFlatten(bool $flatten): NestedTreeAttachManyField
+    {
+        $this->withMeta([
+            'flatten' => $flatten,
+        ]);
+
+        return $this;
+    }
+
     public function useSingleSelect(): NestedTreeAttachManyField
     {
         $this->withMeta([

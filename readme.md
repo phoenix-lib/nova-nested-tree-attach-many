@@ -61,7 +61,8 @@ Here are a few customization options
 - `->withPlaceholder(string $placeholder)` // - placeholder in tree select
 - `->withMaxHeight(int $maxHeight)`
 - `->withSortValueBy(string $sortBy)` // - @see https://vue-treeselect.js.org/#flat-mode-and-sort-values
-- `->withAlwaysOpen(boot $alwaysOpen)` // - by default select is open, but you can change it behavior
+- `->withAlwaysOpen(bool $alwaysOpen)` // - by default select is open, but you can change it behavior
+- `->withFlatten(bool $flatten)` // - by default flatten is enabled, but you can change it behavior
 - `->useSingleSelect()` // - ability for select only one value
 
 
