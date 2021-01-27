@@ -64,6 +64,7 @@ class NestedTreeAttachManyField extends Field
             'disabled'          => false,
             'rtl'               => false,
             'maxHeight'         => 500,
+            'isActiveFalse'     => false
         ]);
 
         /** @var Domain\Cache\Cache $requestCache */
@@ -167,6 +168,15 @@ class NestedTreeAttachManyField extends Field
     {
         $this->withMeta([
             'flatten' => $flatten,
+        ]);
+
+        return $this;
+    }
+
+    public function isActiveFalseValue( $value = false ): NestedTreeAttachManyField
+    {
+        $this->withMeta([
+            'isActiveFalse' => $value,
         ]);
 
         return $this;

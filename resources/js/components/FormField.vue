@@ -46,7 +46,7 @@ export default {
         id: node[this.field.idKey],
         label: node[this.field.labelKey],
         isDisabled: node.hasOwnProperty(this.field.activeKey)
-            && node[this.field.activeKey] !== true,
+            && node[this.field.activeKey] === this.field.isActiveFalse,
         children: node.hasOwnProperty(this.field.childrenKey)
             && node[this.field.childrenKey].length > 0
             ? node[this.field.childrenKey]
