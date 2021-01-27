@@ -66,10 +66,19 @@ class NestedTreeAttachManyField extends Field
             'maxHeight'         => 500,
         ]);
 
-        $tree = $this->resourceClass::newModel()::get()
-            ->toTree();
+        /** @var Domain\Cache\Cache $requestCache */
+        $forRequestCache = App::make(Domain\Cache\Cache::class);
 
-        $this->withMeta(['options' => $tree]);
+        $tag = get_class($this->resourceClass::newModel());
+
+        if(!$forRequestCache->has($tag))
+        {
+            $forRequestCache->put($tag, $this->resourceClass::newModel()::get()->toTree());
+        }
+
+        $this->withMeta([
+            'options' => $forRequestCache->get($tag)
+        ]);
     }
 
     public function searchable(bool $searchable): NestedTreeAttachManyField
