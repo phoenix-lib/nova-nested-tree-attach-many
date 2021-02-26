@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\App;
 use Laravel\Nova\Authorizable;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Fields\ResourceRelationshipGuesser;
+use Laravel\Nova\Http\Requests\NovaRequest;
 use PhoenixLib\NovaNestedTreeAttachMany\Domain\Relation\RelationHandlerFactory;
 use PhoenixLib\NovaNestedTreeAttachMany\Rules\ArrayRules;
 
@@ -74,7 +75,11 @@ class NestedTreeAttachManyField extends Field
 
         if(!$forRequestCache->has($tag))
         {
-            $forRequestCache->put($tag, $this->resourceClass::newModel()::get()->toTree());
+            $query = $this->resourceClass::buildIndexQuery(
+                App::make(NovaRequest::class), $this->resourceClass::newModel()->newQuery()
+            );
+
+            $forRequestCache->put($tag, $query->get()->toTree());
         }
 
         $this->withMeta([
