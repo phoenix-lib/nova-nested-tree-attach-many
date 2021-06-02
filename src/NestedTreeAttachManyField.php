@@ -68,23 +68,25 @@ class NestedTreeAttachManyField extends Field
             'isActiveFalse'     => false
         ]);
 
-        /** @var Domain\Cache\Cache $requestCache */
-        $forRequestCache = App::make(Domain\Cache\Cache::class);
+        if(!App::make(NovaRequest::class)->isResourceIndexRequest()){
+            /** @var Domain\Cache\Cache $requestCache */
+            $forRequestCache = App::make(Domain\Cache\Cache::class);
 
-        $tag = get_class($this->resourceClass::newModel());
+            $tag = get_class($this->resourceClass::newModel());
 
-        if(!$forRequestCache->has($tag))
-        {
-            $query = $this->resourceClass::buildIndexQuery(
-                App::make(NovaRequest::class), $this->resourceClass::newModel()->newQuery()
-            );
+            if(!$forRequestCache->has($tag))
+            {
+                $query = $this->resourceClass::buildIndexQuery(
+                    App::make(NovaRequest::class), $this->resourceClass::newModel()->newQuery()
+                );
 
-            $forRequestCache->put($tag, $query->get()->toTree());
+                $forRequestCache->put($tag, $query->get()->toTree());
+            }
+
+            $this->withMeta([
+                'options' => $forRequestCache->get($tag)
+            ]);
         }
-
-        $this->withMeta([
-            'options' => $forRequestCache->get($tag)
-        ]);
     }
 
     public function searchable(bool $searchable): NestedTreeAttachManyField
