@@ -35,6 +35,15 @@ class BelongsToHandler implements RelationHandler
         $model->save();
 
         $model->setEventDispatcher($dispatcher);
+
+        if (method_exists($model, 'flushQueryCache'))
+        {
+            $reflection = new \ReflectionMethod($model, 'flushQueryCache');
+            if ($reflection->isPublic())
+            {
+                $model->flushQueryCache();
+            }
+        }
     }
 
     public function retrieve($model, $relationship, $idKey)
