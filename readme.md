@@ -66,6 +66,32 @@ Here are a few customization options
 - `->useSingleSelect()` // - ability for select only one value
 - `->useAsField()` // - ability to write result to field without relations
 
+### Example of use with package whitecube/nova-flexible-content
+
+```php
+use Whitecube\NovaFlexibleContent\Flexible;
+use PhoenixLib\NovaNestedTreeAttachMany\NestedTreeAttachManyField;
+
+/**
+ * Get the fields displayed by the resource.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return array
+ */
+public function fields(Request $request)
+{
+    return [
+        // ...
+
+        Flexible::make('Content')
+            ->addLayout('Simple content section', 'tree_section', [
+                NestedTreeAttachManyField::make('Tree',"tree","App\Nova\Category")
+                    ->useAsField(),   
+            ])
+    ];
+}    
+```
+
 
 ### Authorization
 This field also respects policies: ie Role / Permission
