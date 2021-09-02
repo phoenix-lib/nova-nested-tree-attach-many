@@ -55,41 +55,47 @@ export default {
     },
     setInitialValue()
     {
-
-      let baseUrl = '/nova-vendor/nova-nested-tree-attach-many/';
-
-      if( this.resourceId )
+      if(this.field.useAsField)
       {
-        const url = [
-            baseUrl + this.resourceName,
-            this.resourceId,
-            'attached',
-            this.field.attribute,
-            this.field.idKey
-        ];
-
-        Nova.request( url.join('/') )
-            .then( ( data ) => {
-
-                if(!this.field.multiple)
-                {
-                    this.selectedValues = data.data || undefined;
-                }
-                else
-                {
-                    this.selectedValues = data.data || [];
-                }
-            } );
+          this.selectedValues = this.field.value;
       }
       else
       {
-          if(!this.field.multiple)
+          let baseUrl = '/nova-vendor/nova-nested-tree-attach-many/';
+
+          if( this.resourceId )
           {
-              this.selectedValues = undefined;
+              const url = [
+                  baseUrl + this.resourceName,
+                  this.resourceId,
+                  'attached',
+                  this.field.attribute,
+                  this.field.idKey
+              ];
+
+              Nova.request( url.join('/') )
+                  .then( ( data ) => {
+
+                      if(!this.field.multiple)
+                      {
+                          this.selectedValues = data.data || undefined;
+                      }
+                      else
+                      {
+                          this.selectedValues = data.data || [];
+                      }
+                  } );
           }
           else
           {
-              this.selectedValues = [];
+              if(!this.field.multiple)
+              {
+                  this.selectedValues = undefined;
+              }
+              else
+              {
+                  this.selectedValues = [];
+              }
           }
       }
     },

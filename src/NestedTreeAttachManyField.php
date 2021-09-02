@@ -37,7 +37,13 @@ class NestedTreeAttachManyField extends Field
         $this->manyToManyRelationship = $this->attribute;
 
         $this->fillUsing(function($request, $model, $attribute, $requestAttribute) use($resource) {
-            if(is_subclass_of($model, 'Illuminate\Database\Eloquent\Model')) {
+
+            if($this->meta['useAsField'] === true)
+            {
+                $model->{$attribute} = json_decode($request->{$attribute}, true);
+            }
+            else if(is_subclass_of($model, 'Illuminate\Database\Eloquent\Model'))
+            {
                 $model::saved(function($model) use($attribute, $request) {
 
                     $factory = App::make(RelationHandlerFactory::class);
@@ -65,7 +71,8 @@ class NestedTreeAttachManyField extends Field
             'disabled'          => false,
             'rtl'               => false,
             'maxHeight'         => 500,
-            'isActiveFalse'     => false
+            'isActiveFalse'     => false,
+            'useAsField'        => false,
         ]);
 
         if(!App::make(NovaRequest::class)->isResourceIndexRequest()){
@@ -194,6 +201,15 @@ class NestedTreeAttachManyField extends Field
         $this->withMeta([
             'multiple' => false,
             'flatten' => false
+        ]);
+
+        return $this;
+    }
+
+    public function useAsField(): NestedTreeAttachManyField
+    {
+        $this->withMeta([
+            'useAsField' => true,
         ]);
 
         return $this;
